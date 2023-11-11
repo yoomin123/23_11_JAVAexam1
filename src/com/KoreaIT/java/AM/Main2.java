@@ -17,7 +17,7 @@ public class Main2 {
       System.out.print("명령어 ) ");
       String cmd = sc.nextLine().trim(); //trim()은 양 옆의 공백을 없애주는 것
 
-      if (cmd.length() == 0) {
+      if (cmd.isEmpty()) {
         continue;
       }
 
@@ -31,10 +31,16 @@ public class Main2 {
           System.out.println("게시글이 없습니다.");
         }
         else {
-          for (int i = 0; i < articles.size(); i++) {
+          for (int i = articles.size() - 1; i >= 0; i--) {
             System.out.printf("-- %d번 article --\n", articles.get(i).번호);
             System.out.printf("제목 : %s\n", articles.get(i).제목);
             System.out.printf("내용 : %s\n", articles.get(i).내용);
+
+//            위 문장들과 같은 의미
+//            Article article = articles.get(i);
+//            System.out.printf("-- %d번 article --\n", article.번호);
+//            System.out.printf("제목 : %s\n", article.제목);
+//            System.out.printf("내용 : %s\n", article.내용);
           }
         }
       }
