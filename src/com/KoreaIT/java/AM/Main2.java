@@ -9,8 +9,10 @@ public class Main2 {
     System.out.println("== 프로그램 시작 ==");
     Scanner sc = new Scanner(System.in);
 
+    int lastid = 0;
+    List<Article> articles = new ArrayList<>();
+
     while (true) {
-      List<Article> article = new ArrayList<>();
 
       System.out.print("명령어 ) ");
       String cmd = sc.nextLine().trim(); //trim()은 양 옆의 공백을 없애주는 것
@@ -25,13 +27,14 @@ public class Main2 {
       }
 
       if (cmd.equals("article list")) {
-        if (article.isEmpty()) {
+        if (articles.isEmpty()) {
           System.out.println("게시글이 없습니다.");
         }
         else {
-          for (int i = 0; i < article.size(); i++) {
-            System.out.printf("%d번 제목 : %s", article.get(i).번호, article.get(i).제목);
-            System.out.printf("%d번 내용 : %s", article.get(i).번호, article.get(i).내용);
+          for (int i = 0; i < articles.size(); i++) {
+            System.out.printf("-- %d번 article --\n", articles.get(i).번호);
+            System.out.printf("제목 : %s\n", articles.get(i).제목);
+            System.out.printf("내용 : %s\n", articles.get(i).내용);
           }
         }
       }
@@ -44,9 +47,13 @@ public class Main2 {
         System.out.print("내용 : ");
         String 내용 = sc.nextLine();
 
-        article.add(new Article(제목, 내용));
+        int 번호 = lastid + 1;
+        lastid = 번호;
 
-        System.out.printf("%d번 글이 생성되었습니다\n", article.get(article.size() - 1).번호);
+        Article article = new Article(번호, 제목, 내용);
+        articles.add(article);
+
+        System.out.printf("%d번 글이 생성되었습니다\n", 번호);
       }
 
       else {
@@ -60,10 +67,9 @@ class Article {
   String 제목;
   String 내용;
   int 번호;
-  Article(String 제목, String 내용) {
+  public Article(int 번호, String 제목, String 내용) {
     this.제목 = 제목;
     this.내용 = 내용;
-
-    번호 ++;
+    this.번호 = 번호;
   }
 }
