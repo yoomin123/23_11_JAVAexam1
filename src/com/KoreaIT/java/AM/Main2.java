@@ -13,7 +13,7 @@ public class Main2 {
       List<Article> article = new ArrayList<>();
 
       System.out.print("명령어 ) ");
-      String cmd = sc.nextLine();
+      String cmd = sc.nextLine().trim(); //trim()은 양 옆의 공백을 없애주는 것
 
       if (cmd.length() == 0) {
         continue;
@@ -59,7 +59,7 @@ public class Main2 {
 class Article {
   String 제목;
   String 내용;
-  static int 번호;
+  int 번호;
   Article(String 제목, String 내용) {
     this.제목 = 제목;
     this.내용 = 내용;
