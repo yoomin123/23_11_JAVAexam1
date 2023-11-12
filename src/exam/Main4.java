@@ -1,7 +1,5 @@
 package exam;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +9,6 @@ public class Main4 {
     System.out.println("== 프로그램 시작 ==");
     Scanner sc = new Scanner(System.in);
 
-    int lastID = 0;
     List<Article> articles = new ArrayList<>();
 
     while (true) {
@@ -56,7 +53,9 @@ public class Main4 {
 
         int 번호 = articles.size() + 1;
 
-        Article article = new Article(번호, 제목, 내용);
+        String regDate = Util.getNowDateStr();
+
+        Article article = new Article(번호, 제목, 내용, regDate);
         articles.add(article);
 
         System.out.printf("%d번 글이 생성되었습니다\n", 번호);
@@ -85,7 +84,7 @@ public class Main4 {
 
           else {
             System.out.printf("번호 : %d\n", foundArticle.번호);
-            System.out.printf("날짜 : %s\n", LocalDateTime.now());
+            System.out.printf("날짜 : %s\n", foundArticle.regDate);
             System.out.printf("제목 : %s\n", foundArticle.제목);
             System.out.printf("내용 : %s\n", foundArticle.내용);
           }
@@ -132,9 +131,12 @@ class Article {
   String 제목;
   String 내용;
   int 번호;
-  public Article(int 번호, String 제목, String 내용) {
+  String regDate;
+
+  public Article(int 번호, String 제목, String 내용, String regDate) {
     this.제목 = 제목;
     this.내용 = 내용;
     this.번호 = 번호;
+    this.regDate = regDate;
   }
 }
