@@ -1,5 +1,6 @@
 package exam;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -116,6 +117,37 @@ public class Main4 {
               }
             }
             System.out.printf("%d번 게시물이 삭제 되었습니다.\n", ID);
+          }
+        }
+
+        else if (cmd.startsWith("article modify ")) {
+          String[] cmdBits = cmd.split(" ");
+          int ID = Integer.parseInt(cmdBits[2]);
+
+          Article foundArticle = null;
+          for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            if (article.번호 == ID) {
+              foundArticle = article;
+              break;
+            }
+          }
+
+          if(foundArticle == null) {
+            System.out.printf("%d번 게시물은 존재하지 않습니다\n", ID);
+          }
+
+          else {
+            System.out.print("제목 : ");
+            String 제목 = sc.nextLine();
+
+            System.out.print("내용 : ");
+            String 내용 = sc.nextLine();
+
+            foundArticle.제목 = 제목;
+            foundArticle.내용 = 내용;
+
+            System.out.printf("%d번 게시물이 수정 되었습니다\n", ID);
           }
         }
 
