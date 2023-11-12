@@ -54,8 +54,7 @@ public class Main4 {
         System.out.print("내용 : ");
         String 내용 = sc.nextLine();
 
-        int 번호 = lastID + 1;
-        lastID = 번호;
+        int 번호 = articles.size() + 1;
 
         Article article = new Article(번호, 제목, 내용);
         articles.add(article);
@@ -94,16 +93,30 @@ public class Main4 {
         }
 
         else if (cmd.startsWith("article delete ")) {
+          String[] cmdBits = cmd.split(" ");
+          int ID = Integer.parseInt(cmdBits[2]);
+          Article foundArticle = null;
+
           for (int i = 0; i < articles.size(); i++) {
-            String j = " " + (i + 1);
-            if (cmd.contains(j)) {
-              if (articles.get(i).내용.isEmpty()) {
-                System.out.printf("%d번 게시물은 존재하지 않습니다.\n", i + 1);
-              } else {
-                articles.remove(articles.get(i));
-                System.out.printf("%d번 게시물이 삭제 되었습니다.\n", i+1);
+            Article article = articles.get(i);
+            if (article.번호 == ID) {
+              foundArticle = article;
+              break;
+            }
+          }
+
+          if (foundArticle == null) {
+            System.out.printf("%d번 게시물은 존재하지 않습니다.\n", ID);
+          }
+
+          else {
+            articles.remove(ID - 1);
+            if (ID < articles.size()) {
+              for (int i = ID - 1; i < articles.size(); i++) {
+                articles.get(i).번호 -= 1;
               }
             }
+            System.out.printf("%d번 게시물이 삭제 되었습니다.\n", ID);
           }
         }
 
