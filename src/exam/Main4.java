@@ -1,15 +1,17 @@
-package com.KoreaIT.java.AM;
+package exam;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main2 {
+public class Main4 {
   public static void main(String[] args) {
     System.out.println("== 프로그램 시작 ==");
     Scanner sc = new Scanner(System.in);
 
-    int lastid = 0;
+    int lastID = 0;
     List<Article> articles = new ArrayList<>();
 
     while (true) {
@@ -52,8 +54,8 @@ public class Main2 {
         System.out.print("내용 : ");
         String 내용 = sc.nextLine();
 
-        int 번호 = lastid + 1;
-        lastid = 번호;
+        int 번호 = lastID + 1;
+        lastID = 번호;
 
         Article article = new Article(번호, 제목, 내용);
         articles.add(article);
@@ -62,7 +64,52 @@ public class Main2 {
       }
 
       else {
-        System.out.println("존재하지 않는 명령어 입니다.");
+        if (cmd.startsWith("article detail ")) {
+          String[] cmdBits = cmd.split(" ");
+          int ID = Integer.parseInt(cmdBits[2]);
+          Article foundArticle = null;
+
+          for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            if (article.번호 == ID) {
+              foundArticle = article;
+              break;
+            }
+          }
+          // 문자열.startsWith() ==> 괄호 안의 문자열로 시작되는지 판단
+          // 문자열.split() ==> 괄호 안의 것을 기준으로 문자열을 나눔
+          // Integer.parseInt(문자열) ==> 괄호 안의 문자열을 정수열로 변환
+
+          if (foundArticle == null) {
+            System.out.printf("%d번 게시물은 존재하지 않습니다.\n", ID);
+          }
+
+          else {
+            System.out.printf("번호 : %d\n", foundArticle.번호);
+            System.out.printf("날짜 : %s\n", LocalDateTime.now());
+            System.out.printf("제목 : %s\n", foundArticle.제목);
+            System.out.printf("내용 : %s\n", foundArticle.내용);
+          }
+
+        }
+
+        else if (cmd.startsWith("article delete ")) {
+          for (int i = 0; i < articles.size(); i++) {
+            String j = " " + (i + 1);
+            if (cmd.contains(j)) {
+              if (articles.get(i).내용.isEmpty()) {
+                System.out.printf("%d번 게시물은 존재하지 않습니다.\n", i + 1);
+              } else {
+                articles.remove(articles.get(i));
+                System.out.printf("%d번 게시물이 삭제 되었습니다.\n", i+1);
+              }
+            }
+          }
+        }
+
+        else {
+          System.out.println("존재하지 않는 명령어 입니다.");
+        }
       }
     }
   }

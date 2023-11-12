@@ -1,5 +1,3 @@
-package com.KoreaIT.java.AM;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +7,7 @@ public class Main2 {
     System.out.println("== 프로그램 시작 ==");
     Scanner sc = new Scanner(System.in);
 
-    int lastid = 0;
+    int lastID = 0;
     List<Article> articles = new ArrayList<>();
 
     while (true) {
@@ -52,8 +50,8 @@ public class Main2 {
         System.out.print("내용 : ");
         String 내용 = sc.nextLine();
 
-        int 번호 = lastid + 1;
-        lastid = 번호;
+        int 번호 = lastID + 1;
+        lastID = 번호;
 
         Article article = new Article(번호, 제목, 내용);
         articles.add(article);
@@ -62,7 +60,37 @@ public class Main2 {
       }
 
       else {
-        System.out.println("존재하지 않는 명령어 입니다.");
+        if (cmd.startsWith("article detail ")) {
+          for (int i = 0; i < articles.size(); i++) {
+            String j = " "+ (i + 1);
+            if (cmd.contains(j)) {
+              if (articles.get(i).내용.isEmpty()) {
+                System.out.printf("%d번 게시물은 존재하지 않습니다.\n", i+1);
+              }
+              else {
+                System.out.printf("번호 : %d\n날짜 : %s\n제목 : %s\n내용 : %s\n", articles.get(i).번호, "2023-11-12 12:12:12", articles.get(i).제목, articles.get(i).내용);
+              }
+            }
+          }
+        }
+
+        else if (cmd.startsWith("article delete ")) {
+          for (int i = 0; i < articles.size(); i++) {
+            String j = " " + (i + 1);
+            if (cmd.contains(j)) {
+              if (articles.get(i).내용.isEmpty()) {
+                System.out.printf("%d번 게시물은 존재하지 않습니다.\n", i + 1);
+              } else {
+                articles.remove(articles.get(i));
+                System.out.printf("%d번 게시물이 삭제 되었습니다.\n", i+1);
+              }
+            }
+          }
+        }
+
+        else {
+          System.out.println("존재하지 않는 명령어 입니다.");
+        }
       }
     }
   }
